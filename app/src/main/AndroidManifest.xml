@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--permission INTERNET-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--permission BIOMETRICS-->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
     <!--android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"-->
     <application
         android:allowBackup="true"
