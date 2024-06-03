@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicialización de variables y componentes de la interfaz
+        // Inicialización de variables y componentes de la interfaz de loco
         logoutButton = findViewById(R.id.btn_logout);
         userEmail = findViewById(R.id.user_email);
         userProfilePic = findViewById(R.id.user_profile_pic);
