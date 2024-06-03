@@ -4,4 +4,8 @@
         <item name="android:background">@drawable/butin_backg</item>
         <item name="android:textColor">@color/BlueNormal</item>
     </style>
+    <style name="Image_Rounded_ImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

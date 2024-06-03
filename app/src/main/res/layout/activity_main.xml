@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="HolaMundo!"
         android:textColor="@color/BlueNormal"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="260dp"
         android:text="cerrar"
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -45,6 +45,20 @@
         app:layout_constraintTop_toBottomOf="@+id/user_email"
         tools:ignore="MissingConstraints"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/user_profile_pics"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout"
+        app:layout_constraintVertical_bias="0.066"
+        app:shapeAppearanceOverlay="@style/Image_Rounded_ImageView"
+        tools:srcCompat="@tools:sample/avatars"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

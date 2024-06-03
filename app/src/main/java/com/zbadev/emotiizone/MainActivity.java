@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Inicialización de variables y componentes de la interfaz de loco
         logoutButton = findViewById(R.id.btn_logout);
         userEmail = findViewById(R.id.user_email);
-        userProfilePic = findViewById(R.id.user_profile_pic);
+        userProfilePic = findViewById(R.id.user_profile_pics);
         auth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("EmotiizonePrefs", MODE_PRIVATE);
 
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 // Mostrar mensaje de autenticación fallida
                 Toast.makeText(getApplicationContext(), "Autenticación fallida", Toast.LENGTH_SHORT).show();
                 // Redirigir a la pantalla de inicio de sesión
-                LoginRedirect();
+                //LoginRedirect();
             }
         });
 
