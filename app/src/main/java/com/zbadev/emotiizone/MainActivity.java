@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,12 +31,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.zbadev.emotiizone.databinding.ActivityMainBinding;
 
 import java.util.concurrent.Executor;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity{
 
     // Declaración de variables
     private Button logoutButton; // Botón para cerrar sesión
@@ -49,18 +57,47 @@ public class MainActivity extends AppCompatActivity {
     private Runnable inactivityRunnable; // Runnable que se ejecuta tras un período de inactividad
     private static final long INACTIVITY_TIMEOUT = 5 * 60 * 1000; // Tiempo de inactividad en milisegundos (5 minutos)
     private boolean isAppInBackground = false; // Bandera para verificar si la app está en segundo plano
-
+    private DrawerLayout drawerLayout;
+    ActivityMainBinding binding;
+    public static int id=0x7f030004;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        //etContentView(R.layout.activity_main);
 
         // Inicialización de variables y componentes de la interfaz de loco
-        logoutButton = findViewById(R.id.btn_logout);
+        /*logoutButton = findViewById(R.id.btn_logout);
         userEmail = findViewById(R.id.user_email);
-        userProfilePic = findViewById(R.id.user_profile_pics);
+        userProfilePic = findViewById(R.id.user_profile_pics);*/
+
         auth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("EmotiizonePrefs", MODE_PRIVATE);
+
+        /*drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        if (drawerLayout != null) {
+            drawerLayout.openDrawer(GravityCompat.START);
+        }*/
+        //MenuBar
+        replaceFragment(new HomeFragment());
+        binding.bottomNavigationView.setBackground(null);
+
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            id = item.getItemId();
+            if(id == R.id.home){
+                replaceFragment(new HomeFragment());
+            } else if (id == R.id.shorts) {
+                replaceFragment(new ShortsFragment());
+            } else if (id == R.id.subscriptions) {
+                replaceFragment(new SubscriptionFragment());
+            }else if (id == R.id.library){
+                replaceFragment(new LibraryFragment());
+            }
+            return true;
+        });
 
         // Inicialización del manejador de inactividad
         inactivityHandler = new Handler();
@@ -81,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else {
             // Si hay usuario autenticado, actualizar la interfaz de usuario
-            updateUI(auth.getCurrentUser());
+            //updateUI(auth.getCurrentUser());
             // Reiniciar el temporizador de inactividad
             resetInactivityTimer();
         }
@@ -90,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
         configureGoogleSignIn();
 
         // Acción del botón de cerrar sesión
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        /*logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Llamar al método para cerrar sesión
                 signOut();
             }
-        });
+        });*/
     }
 
     // Configuración de inicio de sesión con Google
@@ -129,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Actualizar la interfaz de usuario con la información del usuario
-    private void updateUI(FirebaseUser user) {
+    /*private void updateUI(FirebaseUser user) {
         if (user != null) {
             // Obtener el correo electrónico del usuario
             String email = user.getEmail();
@@ -139,13 +176,13 @@ public class MainActivity extends AppCompatActivity {
             Uri photoUrl = user.getPhotoUrl();
             if (photoUrl != null) {
                 // Cargar la foto de perfil usando Glide
-                Glide.with(this).load(photoUrl).into(userProfilePic);
+                //Glide.with(this).load(photoUrl).into(userProfilePic);
             } else {
                 // Establecer una imagen por defecto si no hay foto de perfil
-                userProfilePic.setImageResource(R.drawable.baseline_person_24);
+                //userProfilePic.setImageResource(R.drawable.baseline_person_24);
             }
         }
-    }
+    }*/
 
     // Método para autenticar al usuario usando biometría
     private void authenticateUser() {
@@ -267,5 +304,13 @@ public class MainActivity extends AppCompatActivity {
     // Método para detener el temporizador de inactividad
     private void stopInactivityTimer() {
         inactivityHandler.removeCallbacks(inactivityRunnable);
+    }
+
+    //Para menubar
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }
